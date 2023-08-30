@@ -20,9 +20,7 @@ export default {
         }
     },
     mounted() {
-
         const emitter = inject('emitter');
-
         emitter.on('addNote', (newNoteInput) => {
             if (!newNoteInput.title || !newNoteInput.description) return;
 
@@ -50,8 +48,8 @@ export default {
             }
             ],
             backupNote: [{
-                title: 'Write your first note',
-                description: 'Make it really good!'
+                title: '',
+                description: ''
             }
             ],
         };
@@ -106,6 +104,7 @@ export default {
      background-repeat: repeat ;
      overflow: scroll;
      background-attachment: local;
+     width: 100vw;
      min-height: auto;
      height: 100vh;
 
