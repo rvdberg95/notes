@@ -87,12 +87,11 @@ export default {
         checkColor() {
             const bgColor = tinycolor(this.colorInput);
             const bgBrightness = bgColor.getBrightness();
-            if (bgBrightness < 75) 
+            if (bgBrightness < 180) 
             {
                 this.bgIsDark = true;
             } else {
                 this.bgIsDark = false;
-
             }
 
             console.log('checking color', bgColor.getBrightness(), this.bgIsDark);
@@ -147,11 +146,15 @@ form {
     text-justify: center;
     align-items: center;
     background-color: var(--form-color);
+    mix-blend-mode: normal;
+    filter: brightness(1) saturate(1);
     margin: 2rem;
     padding: 2rem;
     position: relative;
     height: fit-content;
     box-shadow: 0px 15px 10px 0px rgba(0, 0, 0, 0.25), -0px 20px 25px 1px inset rgba(0, 0, 0, 0.2);
+    filter: saturate(0.9) brightness(1.1);
+
 }
 
 label {

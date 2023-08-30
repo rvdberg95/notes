@@ -6,8 +6,10 @@
     }">
         <h2>{{ title }}</h2>
         <p>{{ description }}</p>
-        <button id="check" @click="changePostItStatus('check')">✓</button>
-        <button id="delete" @click="changePostItStatus('delete')">X</button>
+        <button id="check" @click="changePostItStatus('check')"     
+        :class="{darkmodetext: bgIsDark}">✓</button>
+        <button id="delete" @click="changePostItStatus('delete')"
+        :class="{darkmodetext: bgIsDark}">X</button>
         <p id="timestamp">Made on {{ timestamp }}</p>
     </div>
 </template>
@@ -41,7 +43,7 @@ export default {
         checkColor() {
             const bgColor = tinycolor(this.color);
             const bgBrightness = bgColor.getBrightness();
-            if (bgBrightness > 75) this.bgIsDark = false;
+            if (bgBrightness > 180) this.bgIsDark = false;
         },
         formatDate() {
             const originalDate = new Date(this.id);
@@ -68,7 +70,7 @@ export default {
 }
 
 .darkmodetext h2,
-.darkmodetext p {
+.darkmodetext p,  button .darkmodetext{
     color: rgba(255, 255, 255, 0.90);
 }
 
@@ -89,9 +91,10 @@ div {
     grid-template-columns: repeat(1, 1fr);
     grid-template-rows: auto 1fr;
     transform: rotate(var(--rotation-value));
-    color: rgb(16, 16, 16);
+    color: rgba(0, 0, 0, 0.75);
     transition: 0.3s all;
     transform-origin: top;
+    filter: saturate(0.9) brightness(1.1);
 }
 
 div::after {
@@ -113,7 +116,6 @@ div::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(211, 215, 255, 0.75);
     z-index: -999;
     mix-blend-mode: overlay;
 }
