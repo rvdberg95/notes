@@ -1,5 +1,6 @@
 <template>
-    <div v-if="title" :style="`--element-color: ${color}; --rotation-value: ${rotateValue}deg;`" :class="{
+    <div v-if="title" :style="`--element-color: ${color}; --rotation-value: ${rotateValue}deg;`" 
+    :class="{
         darkmodetext: bgIsDark,
         checkedpostit: isDone
     }">
@@ -52,7 +53,6 @@ export default {
 
             const formattedDate = `${originalDate.getDate()} / ${originalDate.getMonth()} /  ${originalDate.getFullYear()}`;
             this.timestamp = formattedDate;
-            console.log(formattedDate); // Output: Aug 30 2023
 
         }
     }
@@ -90,6 +90,8 @@ div {
     grid-template-rows: auto 1fr;
     transform: rotate(var(--rotation-value));
     color: rgb(16, 16, 16);
+    transition: 0.3s all;
+    transform-origin: top;
 }
 
 div::after {
@@ -118,6 +120,9 @@ div::before {
 
 div h2 {
     height: min-content;
+    inline-size: 15rem;
+    word-wrap: break-word;
+
 }
 
 div p {
@@ -139,19 +144,21 @@ div button {
 }
 
 #check {
-    right: 3%;
-    bottom: -83%;
+    position: relative;
+    right: -55%;
+    top: 100%;
+    height: fit-content;
 }
 
 div .checkedpostit {
     background-color: green;
     text-decoration: line-through;
+    /* transform: rotate(0deg); */
 }
 
 #timestamp {
     font-size: 0.6rem;
     color: rgba(0, 0, 0, 0.5);
-
     position: absolute;
     top: 0;
     left: 3%;

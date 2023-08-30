@@ -2,8 +2,10 @@
     <div id="form-container">
         
         <form @submit.prevent="submitNote(); clearInput();"
-        :style="`--form-color: ${colorInput}; --form-color-2: ${colorInput}99;` ">
-        <div>
+        :style="`--form-color: ${colorInput}; --form-color-2: ${colorInput}99;` "
+        :class="{darkmodetext: bgIsDark}"
+        >
+        <div >
                 <!-- <label for="title">Title</label> -->
                 <input v-model="titleInput" type="text" id="title" name="title" ref="title"  placeholder="Title">
             </div>
@@ -26,15 +28,18 @@
 
 <script>
 import { inject, onMounted, getCurrentInstance, registerRuntimeCompiler } from 'vue'
-
+import tinycolor from "tinycolor2";
 
 export default {
+
     emits: ['refresh'],
     data() {
         return {
             titleInput: '',
             descriptionInput: '',
             colorInput: '#F6F26B',
+            bgIsDark: false,
+
         };
     },
 
@@ -62,6 +67,9 @@ export default {
             submitNote
         }
     },
+    beforeMount() {
+        this.checkColor();
+    },
     methods: {
         clearNotes() {
             window.localStorage.clear(`notes`);
@@ -74,6 +82,20 @@ export default {
         updateFormColor(){
             const color = document.querySelector('#color').value;
             this.colorInput = color;
+            this.checkColor();
+        },
+        checkColor() {
+            const bgColor = tinycolor(this.colorInput);
+            const bgBrightness = bgColor.getBrightness();
+            if (bgBrightness < 75) 
+            {
+                this.bgIsDark = true;
+            } else {
+                this.bgIsDark = false;
+
+            }
+
+            console.log('checking color', bgColor.getBrightness(), this.bgIsDark);
         },
     },
 };
@@ -84,9 +106,16 @@ export default {
 @import url('https://fonts.googleapis.com/css2?family=Kalam:wght@300;400;700&display=swap');
 
 * {
-    color: rgb(48, 48, 48);
+    color: rgba(0, 0, 0, 0.75);
 }
 
+
+
+.darkmodetext ::placeholder
+    , button, .darkmodetext input, .darkmodetext textarea
+  {
+    color: rgba(255, 255, 255, 0.90) !important;
+}
 
 p {
     margin-bottom: 2rem;

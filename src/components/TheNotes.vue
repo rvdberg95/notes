@@ -97,9 +97,11 @@ export default {
 
 <style scoped >
 .container {
-    display: flex;
-    flex-wrap: wrap;
-    /* grid-template-columns: repeat(auto, 1fr); */
+    /* display: flex;
+    flex-wrap: wrap; */
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-auto-rows: min-content;
     background-image: url('../assets/bg.jpg');
      background-repeat: repeat ;
      overflow: scroll;
